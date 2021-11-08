@@ -38187,10 +38187,6 @@ var render = function () {
             [_vm._v("Найти")]
           ),
         ]),
-        _vm._v(" "),
-        _vm.error
-          ? _c("div", [_c("p", [_vm._v("Город не найден.")])])
-          : _vm._e(),
       ]),
       _vm._v(" "),
       _c(
@@ -38209,7 +38205,7 @@ var render = function () {
               },
               [
                 _c("div", { staticClass: "card-body p-4" }, [
-                  !_vm.isLoading
+                  !_vm.isLoading && !_vm.error
                     ? _c("div", [
                         _c("div", { staticClass: "d-flex" }, [
                           _c("h6", { staticClass: "flex-grow-1" }, [
@@ -38322,6 +38318,14 @@ var render = function () {
                           ]
                         ),
                       ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.error
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [_c("h3", [_vm._v("Город не найден.")])]
+                      )
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.isLoading

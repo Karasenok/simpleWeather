@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center" v-if="error">
-                                    <p class="invalid-feedback">Город не найден.</p>
+                                    <h3>Город не найден.</h3>
                                 </div>
                                 <div v-if="isLoading" class="d-flex justify-content-center">
                                     <div class="lds-ellipsis">
