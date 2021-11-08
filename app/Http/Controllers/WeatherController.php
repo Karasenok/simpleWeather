@@ -23,7 +23,7 @@ class WeatherController extends Controller
 
     public function show($city = '') :WeatherResource {
 
-        $city =  $city ?:$this->weatherService->getUserLocation();
+        $city =  $city ?:$this->weatherService->getUserLocation(\request());
 
         return new WeatherResource($this->weatherService->getByCity($city));
     }

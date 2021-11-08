@@ -23,9 +23,9 @@ class WeatherService
         return $this->endpointRequest("weather?".$this->getRequestParams($city));
     }
 
-    public function getUserLocation():string{
-        $ip = '2.92.219.151'; /* My IP address */
-        $currentUserInfo = Location::get($ip); //change to $request->ip()
+    public function getUserLocation($request):string{
+
+        $currentUserInfo = Location::get($request->ip()); //change to
         return $currentUserInfo->cityName?:'Москва';
     }
 
