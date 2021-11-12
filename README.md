@@ -9,5 +9,5 @@ Shows weather params in different locations. Application uses [Openweathermap Ap
 - Cd into directory, then - `./vendor/bin/sail up`
 - Install dependencies(composer,npm)
 
-##simpleWeather
+## simpleWeather
 Try out - `http://161.35.30.128/`
