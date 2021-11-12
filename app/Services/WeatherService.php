@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Http\Resources\WeatherResource;
 use Fresh\Transliteration\Transliterator;
 use GuzzleHttp\Client;
-use Stevebauman\Location\Location;
+use Stevebauman\Location\Facades\Location;
 
 
 class WeatherService
@@ -14,12 +14,10 @@ class WeatherService
     const INTERNAL_SERVER_ERROR = 'Произошла внутренняя ошибка сервера.';
     protected $client;
     protected $transliterator;
-    protected $location;
 
     public function __construct(Client $client){
         $this->client = $client;
         $this->transliterator =  new Transliterator();
-        $this->location = Location::class;
     }
 
     public function getByCity($city) :\stdClass {
@@ -30,7 +28,7 @@ class WeatherService
 
     public function getUserLocation($request):string{
 
-        $currentUserInfo = $this->location->get($request->ip());
+        $currentUserInfo = Location::get($request->ip());
         return $currentUserInfo->cityName?:'Москва';
     }
 
