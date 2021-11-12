@@ -9,12 +9,16 @@ use Stevebauman\Location\Facades\Location;
 
 class WeatherService
 {
+    const NOT_FOUND_ERROR = 'Город не найден.';
+    const INTERNAL_SERVER_ERROR = 'Произошла внутренняя ошибка сервера.';
     protected $client;
     protected $transliterator;
+    protected $location;
 
     public function __construct(Client $client){
         $this->client = $client;
         $this->transliterator =  new Transliterator();
+        $this->location = Location::class;
     }
 
     public function getByCity($city) :\stdClass {
@@ -25,17 +29,15 @@ class WeatherService
 
     public function getUserLocation($request):string{
 
-        $currentUserInfo = Location::get($request->ip()); //change to
+        $currentUserInfo = $this->location::get($request->ip());
         return $currentUserInfo->cityName?:'Москва';
     }
 
-    public function getRequestParams($city) :string{
-        return "q={$city}&lang=ru&units=metric&appid=".env('WEATHER_KAY');
+    protected function getRequestParams($city) :string{
+        return "q={$city}&lang=ru&units=metric&appid=".env('WEATHER_KAY');//todo add custom params
     }
 
-    public function endpointRequest($params) :\stdClass{
-        //$response = $this->client->get( $params);
-
+    protected function endpointRequest($params) :\stdClass{
         try {
 
             $response = $this->client->get( $params);
@@ -44,7 +46,7 @@ class WeatherService
 
           abort(response()->json(
               [
-                  'data' => ['error' => 'Город не найден.']
+                  'data' => ['error' => self::NOT_FOUND_ERROR,'status' => 404] //todo add exceptions.
               ]
           ));
         }
@@ -52,13 +54,20 @@ class WeatherService
         return $this->responseHandler($response->getBody()->getContents());
     }
 
-    public function responseHandler($response) :\stdClass {
+    protected function responseHandler($response) :\stdClass {
         if ($response) {
             $dirtyData = json_decode($response);
-
         }else{
-           // abort(500);
+            abort(response()->json(
+                [
+                    'data' => [
+                        'error' => self::INTERNAL_SERVER_ERROR,
+                        'status' => 500
+                    ]
+                ]
+            ));
         }
+
        return $dirtyData;
     }
 

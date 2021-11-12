@@ -109,16 +109,16 @@
         },
 
 
-        methods:{
+        methods: {
             getWeatherImage() {
-                return "http://openweathermap.org/img/w/"+ this.icon +".png";
+                return "http://openweathermap.org/img/w/" + this.icon + ".png";
             },
-            setWeatherData(data){
+            setWeatherData(data) {
 
-                if(data.error){
+                if (data.error) {
                     return this.error = data.error;
                 }
-                this.weatherName =  data.name;
+                this.weatherName = data.name;
                 this.temperature = data.main.temp;
                 this.description = this.capitalize(data.weather.description);
                 this.windSpeed = data.wind.speed;
@@ -128,10 +128,10 @@
                 this.icon = data.weather.icon;
                 this.error = '';
             },
-            getWeatherByCity(){//todo Сделать валидацию.
-                axios.get('/cities/'+ this.city).then(response => this.setWeatherData(response.data.data));
+            getWeatherByCity() {//todo Сделать валидацию.
+                axios.get('/cities/' + this.city).then(response => this.setWeatherData(response.data.data));
             },
-            capitalize(string){
+            capitalize(string) {
                 return string && string[0].toUpperCase() + string.slice(1);
             }
         }

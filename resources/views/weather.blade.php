@@ -9,9 +9,7 @@
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <!-- Favicon-->
-        <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
-{{--        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">--}}
-
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -19,9 +17,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
     </head>
 
-
     <body class="container">
-
         <div id="app">
             <weather
             ></weather>
