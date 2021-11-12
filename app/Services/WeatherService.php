@@ -5,7 +5,8 @@ namespace App\Services;
 use App\Http\Resources\WeatherResource;
 use Fresh\Transliteration\Transliterator;
 use GuzzleHttp\Client;
-use Stevebauman\Location\Facades\Location;
+use Stevebauman\Location\Location;
+
 
 class WeatherService
 {
@@ -29,7 +30,7 @@ class WeatherService
 
     public function getUserLocation($request):string{
 
-        $currentUserInfo = $this->location::get($request->ip());
+        $currentUserInfo = $this->location->get($request->ip());
         return $currentUserInfo->cityName?:'Москва';
     }
 
