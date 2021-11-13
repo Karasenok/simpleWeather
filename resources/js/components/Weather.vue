@@ -119,7 +119,7 @@
                     return this.error = data.error;
                 }
                 this.weatherName = data.name;
-                this.temperature = data.main.temp;
+                this.temperature = Math.round(data.main.temp);
                 this.description = this.capitalize(data.weather.description);
                 this.windSpeed = data.wind.speed;
                 this.humidity = data.main.humidity;
